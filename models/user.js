@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   isConncted:{type:Boolean,default:0},
-  isVerfied:{required: false, type: Boolean, default: false}
 })
 const User=mongoose.model('User',userSchema);
 module.exports=User;
