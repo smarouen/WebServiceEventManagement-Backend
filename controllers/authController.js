@@ -1,13 +1,12 @@
-const mongoose = require('mongoose')
-const User = require('../models/user')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const express = require('express')
-const path = require('path')
-require('dotenv').config();
+const mongoose = require('mongoose') //ODM pour connecter a mongoDB
+const User = require('../models/user') //model of user (name , email , password etc)
+const bcrypt = require('bcrypt') // to hash password 
+const jwt = require('jsonwebtoken') // generate a unique token to every new user when logged in (verify logged in user to provide authorization to apply CRUD operations)
+const express = require('express') // framework backend javaScript
+require('dotenv').config(); // environement varibale file where i store the sensitive data such as url connection to my database that contains name of db and its password(i used this so that i can hide this data when i push my work on github)
 
 
-
+  ///////////////////////////////////////    Sign Up Logic   /////////////////////////////////////////////////
 exports.userSignup = async (req, res) => {
   try {
     const UserExist = await User.find({ email: req.body.email }).exec()
@@ -24,7 +23,6 @@ exports.userSignup = async (req, res) => {
         password: hashedPassword
       })
       const savedUser = await user.save()
-      // send mail to user so he can get verfied
       res.status(200).json({
         success: true,
         message: 'user signed up successfully',
@@ -39,7 +37,7 @@ exports.userSignup = async (req, res) => {
     })
   }
 }
-
+  ///////////////////////////////////////    Login  Logic  /////////////////////////////////////////////////
 
 exports.userLogin = async (req, res) => {
   try {
